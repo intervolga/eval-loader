@@ -19,8 +19,14 @@ function evalLoader(source) {
   });
   delete require.cache[require.resolve(this.resourcePath)];
 
-  return 'module.exports = ' +
-    JSON.stringify(evaluatedModule.exports, null, 2) + ';';
+  // Convert to JSON
+  const evalExport = JSON.stringify(evaluatedModule.exports, null, 2);
+  if (typeof evalExport === 'undefined') {
+    throw new Error('JSON stringify error: module export could not be ' +
+      'serialized. File: ' + this.resourcePath);
+  }
+
+  return 'module.exports = ' + evalExport + ';';
 }
 
 module.exports = evalLoader;

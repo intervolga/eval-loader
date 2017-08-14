@@ -59,7 +59,7 @@ describe('eval loader', () => {
   it('should produce readable syntax errors', () => {
     const paths = getCasePaths('with-error');
 
-    return runWebpack(paths.source).then((result) => {
+    return runWebpack(paths.source).then(() => {
       // This test case should not be success
       expect().fail();
     }).catch((err) => {
@@ -70,11 +70,24 @@ describe('eval loader', () => {
     });
   });
 
+  it('should produce error with bad export', () => {
+    const paths = getCasePaths('wrong-export');
+
+    return runWebpack(paths.source).then(() => {
+      // This test case should not be success
+      expect().fail();
+    }).catch((err) => {
+      let message = err.toString();
+      expect(message).to.contain('JSON stringify error');
+      expect(message).to.contain('wrong-export/source.js');
+    });
+  });
+
   it('should be fast', () => {
     const paths = getCasePaths('speedtest');
 
     const start = process.hrtime();
-    return runWebpack(paths.source).then((result) => {
+    return runWebpack(paths.source).then(() => {
       const elapsed = process.hrtime(start);
 
       expect(elapsed).to.be.an('array');
