@@ -81,7 +81,7 @@ describe('eval loader', () => {
       expect(elapsed[0]).to.be(0);
 
       // most time used for webpack initialization
-      expect(elapsed[1] / 1000000).to.be.below(100);
+      expect(elapsed[1] / 1000000).to.be.below(200);
     });
   });
 });
