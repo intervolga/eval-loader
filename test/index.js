@@ -33,6 +33,7 @@ describe('eval loader', () => {
 
     let firstRun = false;
     let firstTimerId = null;
+    let watching;
     const cb = (result) => {
       expect(typeof result).to.be.a('string');
 
@@ -49,11 +50,12 @@ describe('eval loader', () => {
         setTimeout(() => {
           expect(result).to.eql(require(paths.expected));
           done();
+          watching && watching.close();
         }, 5000);
       }
     };
 
-    watchWebpack(paths.source, cb);
+    watching = watchWebpack(paths.source, cb);
   });
 
   it('should produce readable syntax errors', () => {
