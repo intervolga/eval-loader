@@ -1,4 +1,4 @@
 module.exports = {
   block: 'footer',
-  content: 'footer content changed',
+  content: 'footer content original',
 };
