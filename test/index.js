@@ -48,9 +48,9 @@ describe('eval loader', () => {
         }, 5000);
       } else {
         setTimeout(() => {
+          watching && watching.close();
           expect(result).to.eql(require(paths.expected));
           done();
-          watching && watching.close();
         }, 5000);
       }
     };
