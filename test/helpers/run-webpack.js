@@ -19,10 +19,11 @@ module.exports = (entry) => {
       }
 
       try {
-        let bundlePath = path.join(config.output.path, config.output.filename);
+        const bundlePath = path.join(
+            config.output.path, config.output.filename);
         const result = require(bundlePath);
 
-        let resultPath = path.join(config.output.path, 'produced.json');
+        const resultPath = path.join(config.output.path, 'produced.json');
         fs.writeFileSync(resultPath, JSON.stringify(result, null, 2));
 
         resolve(result);
