@@ -33,7 +33,7 @@ describe('eval loader', () => {
 
     let firstRun = false;
     let firstTimerId = null;
-    let watching;
+    let watching; // eslint-disable-line prefer-const
     const cb = (result) => {
       expect(typeof result).to.be.a('string');
 
@@ -65,7 +65,7 @@ describe('eval loader', () => {
       // This test case should not be success
       expect().fail();
     }).catch((err) => {
-      let message = err.toString();
+      const message = err.toString();
       expect(message).to.contain('Module build failed');
       expect(message).to.contain('source.js:7');
       expect(message).to.contain('elemMods: {m1');
@@ -79,7 +79,7 @@ describe('eval loader', () => {
       // This test case should not be success
       expect().fail();
     }).catch((err) => {
-      let message = err.toString();
+      const message = err.toString();
       expect(message).to.contain('JSON stringify error');
       expect(message).to.contain('wrong-export/source.js');
     });
@@ -111,8 +111,8 @@ function getCasePaths(caseName) {
   return {
     'path': path.join(__dirname, 'cases', caseName),
     'source': path.join(__dirname, 'cases', caseName,
-      'source.js'),
+        'source.js'),
     'expected': path.join(__dirname, 'cases', caseName,
-      'expected.json'),
+        'expected.json'),
   };
 }
